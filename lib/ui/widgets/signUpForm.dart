@@ -4,7 +4,6 @@ import 'package:animaltinder/repositories/userRepository.dart';
 import 'package:animaltinder/ui/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpForm extends StatefulWidget {
   final UserRepository _userRepository;
@@ -51,11 +50,11 @@ class _SignUpFormState extends State<SignUpForm> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return BlocListener(
-      bloc: _signUpBloc,
+    return BlocListener<SignUpBloc, SignUpState>(
       listener: (BuildContext context, SignUpState state) {
         if (state.isFailure) {
           Scaffold.of(context)
+          ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,9 +81,9 @@ class _SignUpFormState extends State<SignUpForm> {
           Navigator.of(context).pop();
         }
       },
-      child: BlocBuilder(
+      child: BlocBuilder<SignUpBloc, SignUpState>(
         bloc: _signUpBloc,
-        builder: (BuildContext context, SignUpState state) {
+        builder: (context, state) {
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Container(
