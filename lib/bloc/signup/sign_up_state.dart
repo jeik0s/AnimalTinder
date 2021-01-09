@@ -56,15 +56,15 @@ class SignUpState {
   }
 
   SignUpState update({
-    final bool isEmailValid,
-    final bool isPasswordValid,
+    bool isEmailValid,
+    bool isPasswordValid,
   }) {
     return copyWith(
         isEmailValid: isEmailValid,
         isPasswordValid: isPasswordValid,
         isSubmitting: false,
         isFailure: false,
-        isSuccess: true);
+        isSuccess: false);
   }
 
   SignUpState copyWith({
