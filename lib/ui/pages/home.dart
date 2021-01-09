@@ -1,5 +1,6 @@
 import 'package:animaltinder/bloc/authentication/authentication_bloc.dart';
 import 'package:animaltinder/repositories/userRepository.dart';
+import 'package:animaltinder/ui/pages/login.dart';
 import 'package:animaltinder/ui/pages/signUp.dart';
 import 'package:animaltinder/ui/pages/splash.dart';
 import 'package:animaltinder/ui/widgets/tabs.dart';
@@ -36,7 +37,7 @@ class _HomeState extends State<Home> {
           builder: (BuildContext context, AuthenticationState state){
             if(state is Uninitialized){
               return Splash();
-            } else return SignUp(userRepository: _userRepository,);
+            } else return Login(userRepository: _userRepository,);
           },
         )
       ),

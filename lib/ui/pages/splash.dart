@@ -13,7 +13,7 @@ class Splash extends StatelessWidget {
         child: Center(
           child: Text(
             "Animal Tinder",
-            style: TextStyle(color: Colors.white, fontSize: size.width * 0.2),
+            style: TextStyle(color: Colors.white, fontSize: size.width * 0.1),
           ),
         ),
       ),
