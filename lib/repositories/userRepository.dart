@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UserRepository{
   final FirebaseAuth _firebaseAuth;
@@ -46,5 +49,37 @@ class UserRepository{
   }
 
   // profile setup
+  Future <void>profileSetup(
+      File photo,
+      String userId,
+      String name,
+      String gender,
+      String interestedIn,
+      DateTime age,
+      GeoPoint location,
+      )
+    async {
+      StorageUploadTask storageUploadTask;
+      storageUploadTask = FirebaseStorage.instance.ref()
+      .child('userPhoto')
+      .child(userId)
+      .child(userId)
+      .putFile(photo);
 
-}
+      return await storageUploadTask.onComplete.then(
+          (ref) async {
+            await ref.ref.getDownloadURL().then((url) async{
+              await _firestore.collection('user').document(userId).setData({
+                'uid': userId,
+                'photourl': url,
+                'name': name,
+                "location": location,
+                'gender': gender,
+                'interestedIn': interestedIn,
+                'age': age,
+              });
+            });
+          }
+      );
+    }
+  }
