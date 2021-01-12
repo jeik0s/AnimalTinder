@@ -51,8 +51,9 @@ class _ProfilFormState extends State<ProfilForm> {
   }
 
   _getLocation() async {
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     location = GeoPoint(position.latitude, position.longitude);
+
   }
 
   _onSubmitted() async{
