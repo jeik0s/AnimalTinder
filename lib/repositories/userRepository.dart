@@ -69,7 +69,7 @@ class UserRepository{
       return await storageUploadTask.onComplete.then(
           (ref) async {
             await ref.ref.getDownloadURL().then((url) async{
-              await _firestore.collection('user').document(userId).setData({
+              await _firestore.collection('users').document(userId).setData({
                 'uid': userId,
                 'photourl': url,
                 'name': name,
