@@ -1,8 +1,10 @@
+import 'package:animaltinder/bloc/authentication/authentication_bloc.dart';
 import 'package:animaltinder/ui/constants.dart';
 import 'package:animaltinder/ui/pages/matches.dart';
 import 'package:animaltinder/ui/pages/messages.dart';
 import 'package:animaltinder/ui/pages/search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Tabs extends StatelessWidget {
   @override
@@ -23,7 +25,7 @@ class Tabs extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.exit_to_app),
                 onPressed: () {
-
+                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
                 },
               )
             ],
