@@ -1,6 +1,6 @@
 # animaltinder
 
-Aplikacja pomagajaca w adopcji zwierzat
+Projekt inz
 
 ## Getting Started
 
