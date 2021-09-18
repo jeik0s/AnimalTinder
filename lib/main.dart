@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:animaltinder/screens/anima_screen.dart';
+import 'package:animaltinder/screens/animal_screen.dart';
 
 void main() {
   runApp(MyApp());
