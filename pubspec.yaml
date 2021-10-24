@@ -20,3 +20,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/
+  fonts:
+    - family: AlfaSlabOne
+      fonts:
+        - asset: assets/fonts/AlfaSlabOne-Regular.ttf
