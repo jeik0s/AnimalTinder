@@ -15,6 +15,13 @@ class AnimalScreen extends StatefulWidget {
 
 class _AnimalScreenState extends State<AnimalScreen> {
 
+  @override
+  void initState(){
+
+    super.initState();
+  }
+
+
   int selectedBlock = 0;
 
   @override
