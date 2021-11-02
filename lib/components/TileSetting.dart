@@ -8,9 +8,7 @@ class TileSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Padding(
+    return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
           child: Center(
@@ -19,7 +17,6 @@ class TileSetting extends StatelessWidget {
           color: tailColor,
           height: 100.0,
         ),
-      ),
-    );
+      );
   }
 }

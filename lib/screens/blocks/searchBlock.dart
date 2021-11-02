@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+
 
 import 'package:animaltinder/services/networking.dart';
 import 'package:animaltinder/screens/animal_description.dart';

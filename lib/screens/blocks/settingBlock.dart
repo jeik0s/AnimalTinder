@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'package:animaltinder/constValues/ConstValues.dart';
 import 'package:animaltinder/components/TileSetting.dart';
 
 class SettingBlock extends StatefulWidget {
@@ -9,23 +12,45 @@ class SettingBlock extends StatefulWidget {
 }
 
 class _SettingBlockState extends State<SettingBlock> {
-
-  double petAge = 15;
-  Color tileColor = Color(0xFF787878);
+  double petAge = 8;
+  Color activeTileColor = Color(0xFFAFAFAF);
+  Color unactiveTileColor = Color(0xFF787878);
+  List<String> petSearchingOption = ["Pies", "Kot"];
+  List<String> sexOfSearchingPet = ["Ona"];
 
   @override
   Widget build(BuildContext context) {
+    CupertinoPicker iOSPicker(List<String> listOfItems) {
+      List<Text> pickerList = [];
+      for (String item in listOfItems) {
+        pickerList.add(Text(item));
+      }
+
+      return CupertinoPicker(
+          // backgroundColor: Colors.lightBlue,
+          itemExtent: 31.0,
+          onSelectedItemChanged: (selectedIndex) {
+            print(selectedIndex);
+          },
+          children: pickerList);
+    }
+
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: textSettingField("Województwo:"),
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              child: Text("Województwo"),
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left:15.0, right: 15.0, bottom: 15.0),
-            child: textSettingField("Od:"),
+              padding: const EdgeInsets.all(15.0),
+              child: iOSPicker(kkkWojewodztwa)),
+          Container(
+            child: Text("Od"),
           ),
+          Padding(padding: const EdgeInsets.all(15.0), child: iOSPicker(kkkOd)),
           Column(
             children: <Widget>[
               Container(
@@ -36,9 +61,63 @@ class _SettingBlockState extends State<SettingBlock> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    TileSetting(tailColor: tileColor, name: "Pies"),
-                    TileSetting(tailColor: tileColor, name: "Kot"),
-                    TileSetting(tailColor: tileColor, name: "Koń"),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                          petSearchingOption.contains('Pies') ? petSearchingOption.remove('Pies') : petSearchingOption.add('Pies');
+                          print(petSearchingOption.toString());
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: Center(child: Text("Pies")),
+                            color: petSearchingOption.contains('Pies') ? activeTileColor : unactiveTileColor,
+                            height: 100.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            petSearchingOption.contains('Kot') ? petSearchingOption.remove('Kot') : petSearchingOption.add('Kot');
+                            print(petSearchingOption.toString());
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: Center(child: Text("Kot")),
+                            color: petSearchingOption.contains('Kot') ? activeTileColor : unactiveTileColor,
+                            height: 100.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            petSearchingOption.contains('Kon') ? petSearchingOption.remove('Kon') : petSearchingOption.add('Kon');
+                            print(petSearchingOption.toString());
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: Center(child: Text("Kon")),
+                            color: petSearchingOption.contains('Kon') ? activeTileColor : unactiveTileColor,
+                            height: 100.0,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -50,8 +129,44 @@ class _SettingBlockState extends State<SettingBlock> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    TileSetting(tailColor: tileColor, name: "On"),
-                    TileSetting(tailColor: tileColor, name: "Ona"),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            sexOfSearchingPet.contains('On') ? sexOfSearchingPet.remove('On') : sexOfSearchingPet.add('On');
+                            print(sexOfSearchingPet.toString());
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: Center(child: Text("On")),
+                            color: sexOfSearchingPet.contains('On') ? activeTileColor : unactiveTileColor,
+                            height: 100.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            sexOfSearchingPet.contains('Ona') ? sexOfSearchingPet.remove('Ona') : sexOfSearchingPet.add('Ona');
+                            print(sexOfSearchingPet.toString());
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: Center(child: Text("Ona")),
+                            color: sexOfSearchingPet.contains('Ona') ? activeTileColor : unactiveTileColor,
+                            height: 100.0,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -59,18 +174,17 @@ class _SettingBlockState extends State<SettingBlock> {
                 child: Text("Wiek"),
               ),
               Slider(
-                value: petAge,
-                activeColor: Colors.grey[300],
-                inactiveColor: Colors.grey[700],
-                min: 0,
-                max: 15,
-                // divisions: 1,
-                onChanged: (double newValue){
-                  setState(() {
-                    petAge = newValue;
-                  });
-                }
-              ),
+                  value: petAge,
+                  activeColor: Colors.grey[300],
+                  inactiveColor: Colors.grey[700],
+                  min: 0,
+                  max: 15,
+                  // divisions: 1,
+                  onChanged: (double newValue) {
+                    setState(() {
+                      petAge = newValue;
+                    });
+                  }),
               Container(
                 child: Text("${petAge.round()}"),
               )
@@ -81,24 +195,21 @@ class _SettingBlockState extends State<SettingBlock> {
     );
   }
 
+  void addPetToPetList(String pet){
 
-  Container textSettingField(@required text) => Container(
-          width: double.infinity,
-          color: Color(0xFFAEAEAE),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              text,
-              style: TextStyle(
-                  color: Colors.black
-
-              ),
-            ),
-          ),
-        );
   }
 
-
-
+  Container textSettingField(@required text) => Container(
+        width: double.infinity,
+        color: Color(0xFFAEAEAE),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      );
+}
 
 // JakubFigmartyu12#
