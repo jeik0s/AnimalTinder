@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:animaltinder/services/animal_model.dart';
 
 class AnimalDescription extends StatefulWidget {
-  AnimalDescription({@required this.animalData});
+  AnimalDescription({required this.animalModel});
 
-  final animalData;
+  final AnimalModel animalModel;
 
   @override
   _AnimalDescriptionState createState() => _AnimalDescriptionState();
@@ -13,7 +14,6 @@ class _AnimalDescriptionState extends State<AnimalDescription> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -21,15 +21,68 @@ class _AnimalDescriptionState extends State<AnimalDescription> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.animalData[0]["Name"]),
+        title: Text(widget.animalModel.getName()),
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Text(widget.animalData[0]["Description"]),
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Image.network(widget.animalModel.getPhotoUrl()),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        height: 100.0,
+                        child: Center(
+                            child: Icon(
+                                widget.animalModel.getSex() == 'M' ? Icons.male : Icons.female,
+                              size: 70.0
+                            ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 100.0,
+                        child: Center(child: Text("4",
+                        style: TextStyle(
+                          fontSize: 70.0
+                        ),
+                        )),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Container(
+                    child: Text(widget.animalModel.getDescription()),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Container(
+                    child: Text(widget.animalModel.getDescription()),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Container(
+                    child: Text(widget.animalModel.getDescription()),
+                  ),
+                ),              Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Container(
+                    child: Text(widget.animalModel.getDescription()),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

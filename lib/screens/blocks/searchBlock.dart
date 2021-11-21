@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
-
 
 import 'package:animaltinder/services/networking.dart';
 import 'package:animaltinder/screens/animal_description.dart';
+import 'package:animaltinder/services/animal_model.dart';
 
 class SearchBlock extends StatefulWidget {
   const SearchBlock({Key? key}) : super(key: key);
@@ -18,6 +17,8 @@ class _SearchBlockState extends State<SearchBlock> {
   var animalData;
   String animalName = "";
   String animalAge = "";
+  String animalSex = "";
+  String animalProvince = "";
   String animalBreed = "";
   String animalDescription = "";
   String animalPhoto = "https://via.placeholder.com/1000";
@@ -30,11 +31,13 @@ class _SearchBlockState extends State<SearchBlock> {
   void loadNextAnimal() async {
     animalData = await networkHelper.getNextAnimal();
     setState(() {
-      animalName = animalData[0]["Name"];
-      animalAge = animalData[0]["Age"];
-      animalBreed = animalData[0]["Breed"];
-      animalDescription = animalData[0]["Description"];
-      animalPhoto = animalData[0]["PhotoLink"];
+      animalName = animalData[0]["name"];
+      animalAge = animalData[0]["age"];
+      animalSex = animalData[0]["sex"];
+      animalProvince = animalData[0]["provinceName"];
+      animalBreed = animalData[0]["breed"];
+      animalDescription = animalData[0]["description"];
+      animalPhoto = animalData[0]["photoUrl"];
     });
   }
 
@@ -71,7 +74,8 @@ class _SearchBlockState extends State<SearchBlock> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return AnimalDescription(animalData: animalData);
+//                                return AnimalDescription();
+                                return AnimalDescription(animalModel: AnimalModel(name: animalName, age: animalAge, sex: animalSex, province: animalProvince, breed: animalBreed, description: animalDescription, photoUrl: animalPhoto));
                               },
                             ),
                           );
