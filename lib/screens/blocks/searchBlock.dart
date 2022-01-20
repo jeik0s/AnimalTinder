@@ -1,3 +1,5 @@
+import 'package:animaltinder/constValues/ConstValues.dart';
+import 'package:animaltinder/services/memory_data_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:animaltinder/services/networking.dart';
@@ -15,6 +17,7 @@ class _SearchBlockState extends State<SearchBlock> {
   NetworkHelper networkHelper = NetworkHelper();
 
   var animalData;
+  String animalID = "";
   String animalName = "";
   String animalAge = "";
   String animalSex = "";
@@ -22,6 +25,7 @@ class _SearchBlockState extends State<SearchBlock> {
   String animalBreed = "";
   String animalDescription = "";
   String animalPhoto = "https://via.placeholder.com/1000";
+  String animalPlace = "";
 
   void getAllAnimalsData() async {
     var animalData = await networkHelper.getAnimal("1");
@@ -31,6 +35,7 @@ class _SearchBlockState extends State<SearchBlock> {
   void loadNextAnimal() async {
     animalData = await networkHelper.getNextAnimal();
     setState(() {
+      animalID = animalData[0]["animalID"];
       animalName = animalData[0]["name"];
       animalAge = animalData[0]["age"];
       animalSex = animalData[0]["sex"];
@@ -38,6 +43,7 @@ class _SearchBlockState extends State<SearchBlock> {
       animalBreed = animalData[0]["breed"];
       animalDescription = animalData[0]["description"];
       animalPhoto = animalData[0]["photoUrl"];
+      animalPlace = animalData[0]["environment"];
     });
   }
 
@@ -75,7 +81,7 @@ class _SearchBlockState extends State<SearchBlock> {
                             MaterialPageRoute(
                               builder: (context) {
 //                                return AnimalDescription();
-                                return AnimalDescription(animalModel: AnimalModel(name: animalName, age: animalAge, sex: animalSex, province: animalProvince, breed: animalBreed, description: animalDescription, photoUrl: animalPhoto));
+                                return AnimalDescription(animalModel: AnimalModel(id: animalID,name: animalName, age: animalAge, sex: animalSex, province: animalProvince, breed: animalBreed, description: animalDescription, photoUrl: animalPhoto, place: animalPlace));
                               },
                             ),
                           );
@@ -110,6 +116,7 @@ class _SearchBlockState extends State<SearchBlock> {
                         children: <Widget>[
                           IconButton(
                             onPressed: () {
+                              MemoryDataManager().writeNextElementToMemoryTable(keyName: kkklikedAnimalsArrayName, newValue: animalID);
                               loadNextAnimal();
                             },
                             icon: Icon(

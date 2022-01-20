@@ -1,7 +1,10 @@
+import 'package:animaltinder/constValues/ConstValues.dart';
 import 'package:flutter/material.dart';
 import 'package:animaltinder/services/animal_model.dart';
 import 'package:animaltinder/services/networking.dart';
 import 'package:animaltinder/screens/animal_description.dart';
+import 'package:animaltinder/services/memory_data_manager.dart';
+
 
 class LikedBlock extends StatefulWidget {
   @override
@@ -9,21 +12,31 @@ class LikedBlock extends StatefulWidget {
 }
 
 class _LikedBlockState extends State<LikedBlock> {
-  List<String> likedAnimalsIds = ['1', '2'];
+
+  Future<void> getData(keyValue) async{
+    likedAnimalsIds = await MemoryDataManager().readFromMemory(keyName: keyValue);
+    print('getData');
+    print(likedAnimalsIds);
+  }
+
+  List<String> likedAnimalsIds = [];
   NetworkHelper networkHelper = NetworkHelper();
   List<AnimalModel> myLikedAniaml = [];
 
   void loadBulkAnimalsWithId() async {
+    await getData(kkklikedAnimalsArrayName);
     var animalData = await networkHelper.getAnimal(likedAnimalsIds.join(','));
     for (int i = 0; i < likedAnimalsIds.length; i++) {
       myLikedAniaml.add(AnimalModel(
+          id: animalData[i]["animalID"],
           name: animalData[i]["name"],
           age: animalData[i]["age"],
           sex: animalData[i]["sex"],
           province: animalData[i]["provinceName"],
           breed: animalData[i]["breed"],
           description: animalData[i]["description"],
-          photoUrl: animalData[i]["photoUrl"]));
+          photoUrl: animalData[i]["photoUrl"],
+          place: animalData[i]["environment"]));
     }
     setState(() {
       myLikedAniaml;
@@ -44,6 +57,7 @@ class _LikedBlockState extends State<LikedBlock> {
       crossAxisCount: 2,
       // Generate 100 widgets that display their index in the List.
       children: List.generate(myLikedAniaml.length, (index) {
+        double cardWidth = double.infinity;
         return Padding(
           padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
@@ -54,7 +68,15 @@ class _LikedBlockState extends State<LikedBlock> {
                           builder: (context) =>  AnimalDescription(animalModel: myLikedAniaml[index]))
                   );
                 },
+                onLongPress: (){
+                  setState(() {
+                    MemoryDataManager().removeElementFormMemoryTable(keyName: kkklikedAnimalsArrayName, value: myLikedAniaml[index].id);
+                    print(myLikedAniaml[index].id);
+                    cardWidth = 0.00;
+                  });
+                },
                 child: Container(
+                  width: cardWidth,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         alignment: Alignment(-.2, 0),

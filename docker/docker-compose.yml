@@ -1,7 +1,8 @@
 version: '3.8'
 services:
     php-apache-environment:
-        container_name: php-apache
+        container_name: php-apache-server
+        restart: always
         build:
             context: ./php
             dockerfile: Dockerfile
@@ -12,14 +13,14 @@ services:
         ports:
             - 8000:80
     db:
-        container_name: db
+        container_name: mysql-database
         image: mysql
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
-            MYSQL_DATABASE: MYSQL_DATABASE
-            MYSQL_USER: MYSQL_USER
-            MYSQL_PASSWORD: MYSQL_PASSWORD
+            MYSQL_USER: rootD3nkQxZnG
+            MYSQL_ROOT_PASSWORD: vhG4UEhAMfucguTx
+            MYSQL_DATABASE: animalTinder
+            MYSQL_PASSWORD: 862cMuAkp3u3ZHKc
         ports:
             - "9906:3306"
     phpmyadmin:

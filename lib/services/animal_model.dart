@@ -1,6 +1,7 @@
 class AnimalModel{
 
-  AnimalModel({required this.name, required this.age, required this.sex, required this.province, required this.breed, required this.description, required this.photoUrl});
+  AnimalModel({required this.id, required this.name, required this.age, required this.sex, required this.province, required this.breed, required this.description, required this.photoUrl, required this.place});
+  final String id;
   final String name;
   final String age;
   final String sex;
@@ -8,6 +9,11 @@ class AnimalModel{
   final String breed;
   final String description;
   final String photoUrl;
+  final String place;
+
+  getId(){
+    return id;
+  }
 
   getName(){
     return name;
@@ -35,6 +41,10 @@ class AnimalModel{
 
   getPhotoUrl(){
     return photoUrl;
+  }
+
+  getPlace(){
+    return place;
   }
 
 }

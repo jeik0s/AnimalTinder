@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:animaltinder/constValues/ConstValues.dart';
 import 'package:animaltinder/components/TileSetting.dart';
+import 'package:animaltinder/services/memory_data_manager.dart';
 
 class SettingBlock extends StatefulWidget {
   const SettingBlock({Key? key}) : super(key: key);
@@ -12,14 +13,33 @@ class SettingBlock extends StatefulWidget {
 }
 
 class _SettingBlockState extends State<SettingBlock> {
+
+  MemoryDataManager memoryDataManager = MemoryDataManager();
+
   double petAge = 8;
   Color activeTileColor = Color(0xFFAFAFAF);
   Color unactiveTileColor = Color(0xFF787878);
   List<String> petSearchingOption = ["Pies", "Kot"];
   List<String> sexOfSearchingPet = ["Ona"];
 
+  getData(keyValue) async{
+    List data = await memoryDataManager.readFromMemory(keyName: keyValue);
+    print(data);
+  }
+
+  writeData(keyValue, data) async {
+    memoryDataManager.writeToMemory(keyName: keyValue, data: data);
+  }
+
   @override
   Widget build(BuildContext context) {
+
+//    getData('test');
+//    writeData('test',['Ania']);
+//    getData('test');
+//    writeData('test',['test33','test22']);
+//    getData('test');
+
     CupertinoPicker iOSPicker(List<String> listOfItems) {
       List<Text> pickerList = [];
       for (String item in listOfItems) {
@@ -82,7 +102,8 @@ class _SettingBlockState extends State<SettingBlock> {
                     ),
                     Expanded(
                       flex: 1,
-                      child: GestureDetector(
+                      child:
+                      GestureDetector(
                         onTap: () {
                           setState(() {
                             petSearchingOption.contains('Kot') ? petSearchingOption.remove('Kot') : petSearchingOption.add('Kot');
@@ -111,7 +132,7 @@ class _SettingBlockState extends State<SettingBlock> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            child: Center(child: Text("Kon")),
+                            child: Center(child: Text("Koń")),
                             color: petSearchingOption.contains('Kon') ? activeTileColor : unactiveTileColor,
                             height: 100.0,
                           ),

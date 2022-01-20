@@ -48,7 +48,7 @@ class _AnimalDescriptionState extends State<AnimalDescription> {
                     Expanded(
                       child: Container(
                         height: 100.0,
-                        child: Center(child: Text("4",
+                        child: Center(child: Text(widget.animalModel.getAge(),
                         style: TextStyle(
                           fontSize: 70.0
                         ),
@@ -64,20 +64,12 @@ class _AnimalDescriptionState extends State<AnimalDescription> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
+                  padding: const EdgeInsets.only(top: 30.0),
                   child: Container(
-                    child: Text(widget.animalModel.getDescription()),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Container(
-                    child: Text(widget.animalModel.getDescription()),
-                  ),
-                ),              Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Container(
-                    child: Text(widget.animalModel.getDescription()),
+                    height: 40.0,
+                    width: double.infinity,
+                    color: Colors.grey[800],
+                    child: Center(child: Text(widget.animalModel.getPlace())),
                   ),
                 ),
               ],

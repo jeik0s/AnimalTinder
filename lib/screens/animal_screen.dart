@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 // Services
 import 'package:animaltinder/services/networking.dart';
 
@@ -7,6 +8,7 @@ import 'package:animaltinder/services/networking.dart';
 import 'package:animaltinder/screens/blocks/searchBlock.dart';
 import 'package:animaltinder/screens/blocks/likedBlock.dart';
 import 'package:animaltinder/screens/blocks/settingBlock.dart';
+import 'package:animaltinder/services/networking.dart';
 
 class AnimalScreen extends StatefulWidget {
   @override
@@ -14,21 +16,31 @@ class AnimalScreen extends StatefulWidget {
 }
 
 class _AnimalScreenState extends State<AnimalScreen> {
+  bool NetworkWorking = false;
 
   @override
-  void initState(){
-
+  initState() {
+    checkNetwork();
     super.initState();
   }
 
+  checkNetwork() async {
+    try {
+      await NetworkHelper().getAnimal("1");
+      print('działa');
+      NetworkWorking = true;
+    } catch (e) {
+      print('nie działa');
+    }
+  }
 
   int selectedBlock = 0;
 
-  @override
-  Widget build(BuildContext context) {
+  Widget scaffoldNetworkWorking() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AnimalTinder',
+        title: const Text(
+          'AnimalTinder',
           style: TextStyle(fontFamily: 'AlfaSlabOne'),
         ),
       ),
@@ -54,6 +66,25 @@ class _AnimalScreenState extends State<AnimalScreen> {
     );
   }
 
+  Widget scaffoldNetworkNotWorking() {
+    return Scaffold(
+        body: Container(
+      child: Center(
+          child: Text(
+              "No internet connection \n please turn on internet and restart the app",
+          textAlign: TextAlign.center,),
+      ),
+      color: Colors.black,
+    ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return (NetworkWorking
+        ? scaffoldNetworkWorking()
+        : scaffoldNetworkNotWorking());
+  }
+
   void _onItemTapped(int index) {
     print(index);
     setState(() {
@@ -69,7 +100,3 @@ class _AnimalScreenState extends State<AnimalScreen> {
 
   //https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
 }
-
-
-
-
