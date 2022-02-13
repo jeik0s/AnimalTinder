@@ -2,7 +2,7 @@
 //These are the defined authentication environment in the db service
 
 // The MySQL service named in the docker-compose.yml.
-$host = 'db';
+$host = 'animaltinder-database';
 // Database use name
 $user = 'rootD3nkQxZnG';
 //database user password
@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// echo "Connected to MySQL server successfully!";
+ echo "Connected to MySQL server successfully!";
 
 $kingdomParameter = $_GET['kingdom'];
 $environmentParameter = $_GET['environment'];
@@ -35,6 +35,7 @@ $sql .= "AND a.breed IN (".convertParameter($kindParameter).") ";
 $sql .= "AND a.sex IN (".convertParameter($genderParameter).") ";
 $sql .= "AND a.age between 0 AND ".$ageParameter.";";
 
+//echo $sql;
 
 $result = $conn->query($sql);
 

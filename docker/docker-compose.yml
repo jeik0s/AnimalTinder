@@ -1,19 +1,7 @@
 version: '3.8'
 services:
-    php-apache-environment:
-        container_name: php-apache-server
-        restart: always
-        build:
-            context: ./php
-            dockerfile: Dockerfile
-        depends_on:
-            - db
-        volumes:
-            - ./php/src:/var/www/html/
-        ports:
-            - 8000:80
     db:
-        container_name: mysql-database
+        container_name: animaltinder-database
         image: mysql
         restart: always
         environment:
@@ -21,14 +9,34 @@ services:
             MYSQL_ROOT_PASSWORD: vhG4UEhAMfucguTx
             MYSQL_DATABASE: animalTinder
             MYSQL_PASSWORD: 862cMuAkp3u3ZHKc
-        ports:
-            - "9906:3306"
+        networks:
+            - animaltindernetwork
     phpmyadmin:
+        container_name: animaltinder-phpmyadmin
         image: phpmyadmin/phpmyadmin
         ports:
             - '8080:80'
         restart: always
+        networks:
+            - animaltindernetwork
         environment:
-            PMA_HOST: db
+            PMA_HOST: animaltinder-database
+            PMA_PORT: 3306
         depends_on:
             - db
+    php-apache-environment:
+        container_name: animaltinder-phpapacha
+        restart: always
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+        networks:
+            - animaltindernetwork
+        depends_on:
+            - db
+        volumes:
+            - ./php/src:/var/www/html/
+        ports:
+            - 8000:80
+networks:
+    animaltindernetwork:

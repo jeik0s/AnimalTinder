@@ -6,8 +6,8 @@ class NetworkHelper{
   int currentAnimal = 0;
 
   Future<dynamic> getAnimal(String animalId) async{
-    var url = Uri.http('localhost:8000', '/', {'getAnimal': '$animalId'});
-//    print(url);
+    var url = Uri.http('192.168.0.248:8000', '/', {'getAnimal': '$animalId'});
+    print(url);
     var response = await http.get(url);
     if(response.statusCode == 200) {
       try {
@@ -20,7 +20,7 @@ class NetworkHelper{
 
   Future<dynamic> getNextAnimal() async {
     currentAnimal++;
-    var url = Uri.http('localhost:8000', '/', {'getAnimal': '$currentAnimal'});
+    var url = Uri.http('192.168.0.248:8000', '/', {'getAnimal': '$currentAnimal'});
     var response = await http.get(url);
     if(response.statusCode == 200)
         return jsonDecode(response.body);
